@@ -1,0 +1,43 @@
+ACES CONSOLE AUTH SETUP
+
+COPY FILES INTO src/
+- ACES-ConsoleLogin.jsx -> rename to ConsoleLogin.jsx
+- ACES-ResetPassword.jsx -> rename to ResetPassword.jsx
+- ACES-Auth.css -> rename to Auth.css
+- ACES-App-with-reset.jsx -> rename to App.jsx
+
+Keep:
+src/lib/supabase.js
+
+SUPABASE AUTH URL CONFIGURATION
+Site URL:
+http://localhost:5173
+
+Redirect URL:
+http://localhost:5173/reset-password
+
+You may also add:
+http://localhost:5173/**
+
+ADMIN USER
+The Supabase Auth UUID already used for this ACES console is:
+4a8f6cd9-2a30-4b28-bc44-ee69d09bc7ae
+
+Verify it is in public.admin_users:
+SELECT *
+FROM public.admin_users
+WHERE user_id = '4a8f6cd9-2a30-4b28-bc44-ee69d09bc7ae';
+
+ROUTES
+/                  main ACES site
+/recruit           recruitment
+/console/login     admin login
+/reset-password    password reset
+/console           admin console
+
+FLOW
+Console login -> Supabase signInWithPassword -> is_admin RPC -> /console
+
+Forgot password -> Supabase reset email -> /reset-password -> updateUser password -> /console/login
+
+Do not place a service_role/secret key in frontend code.

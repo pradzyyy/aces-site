@@ -1,0 +1,923 @@
+.domains {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+
+  background: #f4f3ed;
+  color: #090909;
+
+  overflow: hidden;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.055) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.055) 1px,
+      transparent 1px
+    );
+
+  background-size: 30px 30px;
+}
+
+.domains-inner {
+  width: min(
+    1400px,
+    calc(100% - 80px)
+  );
+
+  margin: 0 auto;
+
+  padding: 110px 0 32px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.domains-header {
+  position: relative;
+
+  margin-bottom: 70px;
+}
+
+.domains-index {
+  font-family: monospace;
+
+  font-size: 10px;
+
+  letter-spacing: 0.08em;
+
+  margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   DOMAIN TITLE
+========================================================= */
+
+.domains-title {
+  margin: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(76px, 11vw, 170px);
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  line-height: 0.86;
+}
+
+
+/* ---------------------------------------------------------
+   DOMAINS
+--------------------------------------------------------- */
+
+.domains-title-solid {
+  display: block;
+
+  line-height: 0.82;
+
+  font-style: normal;
+
+  font-weight: 800;
+
+  color: #090909;
+
+  letter-spacing: -0.065em;
+}
+
+
+/* ---------------------------------------------------------
+   AVAILABLE
+--------------------------------------------------------- */
+
+.domains-title-outline {
+  display: block;
+
+  margin-top: 0.035em;
+
+  line-height: 0.9;
+
+  font-style: italic;
+
+  font-weight: 300;
+
+  color: transparent;
+
+  -webkit-text-stroke:
+    1px rgba(0, 0, 0, 0.62);
+
+  /*
+   * Deliberately much less negative than DOMAINS.
+   * Prevents A / L / A / B collisions.
+   */
+  letter-spacing: -0.025em;
+
+  /*
+   * Gives the final period a little breathing room.
+   */
+  padding-right: 0.04em;
+}
+
+.domains-intro {
+  margin: 38px 0 0 120px;
+
+  font-family: monospace;
+
+  font-size: 11px;
+
+  line-height: 1.7;
+
+  letter-spacing: 0.03em;
+}
+
+
+/* =========================================================
+   WORKSPACE
+========================================================= */
+
+.domains-workspace {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.55fr)
+    minmax(340px, 0.85fr);
+
+  gap: 64px;
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   TERMINAL
+========================================================= */
+
+.terminal-window {
+  position: relative;
+
+  background: #050505;
+
+  color: #f4f4f4;
+
+  min-height: 470px;
+
+  border: 1px solid #050505;
+
+  box-shadow:
+    12px 14px 0
+    rgba(0, 0, 0, 0.09);
+}
+
+.terminal-topbar {
+  height: 36px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 0 14px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  font-family: monospace;
+
+  font-size: 8px;
+}
+
+.terminal-dots {
+  display: flex;
+
+  gap: 6px;
+
+  margin-right: 14px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+}
+
+.dot-red {
+  background: #ff4d4d;
+}
+
+.dot-yellow {
+  background: #ffca28;
+}
+
+.dot-green {
+  background: #25e58c;
+}
+
+.terminal-path {
+  opacity: 0.55;
+}
+
+.terminal-status {
+  margin-left: auto;
+
+  color: #20e0b0;
+
+  letter-spacing: 0.05em;
+}
+
+.terminal-body {
+  position: relative;
+
+  padding: 34px 25px 30px;
+
+  min-height: 430px;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: 12px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   TERMINAL LINES
+========================================================= */
+
+.terminal-line {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  min-height: 22px;
+}
+
+.terminal-command {
+  color: #f4f4f4;
+}
+
+.terminal-info {
+  margin-top: 8px;
+
+  color:
+    rgba(255, 255, 255, 0.65);
+}
+
+.prompt-symbol {
+  width: 18px;
+
+  flex: 0 0 18px;
+
+  color: #1de4b2;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   LIVE TYPING
+========================================================= */
+
+.terminal-live-line {
+  min-height: 22px;
+
+  color: #f4f4f4;
+}
+
+.terminal-live-line
+  > span:nth-child(2) {
+  white-space: pre-wrap;
+
+  word-break: break-word;
+}
+
+.terminal-cursor {
+  display: inline-block;
+
+  width: 6px;
+
+  height: 14px;
+
+  margin-left: 2px;
+
+  background: #20e0b0;
+
+  vertical-align: middle;
+
+  transition:
+    opacity 0.08s linear;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.terminal-divider-line {
+  margin: 24px 0;
+
+  color:
+    rgba(255, 255, 255, 0.16);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   DOMAIN LINES
+========================================================= */
+
+.terminal-domain-line {
+  display: grid;
+
+  grid-template-columns:
+    36px
+    minmax(0, 1fr)
+    70px;
+
+  align-items: center;
+
+  min-height: 22px;
+}
+
+.terminal-domain-number {
+  color: #1de4b2;
+}
+
+.terminal-domain-name {
+  color: #f2f2f2;
+}
+
+.terminal-domain-status {
+  color: #20e0b0;
+
+  font-size: 9px;
+
+  text-align: right;
+}
+
+
+/* =========================================================
+   DETAIL OUTPUT
+========================================================= */
+
+.terminal-detail-title {
+  margin-top: 4px;
+
+  color: #ffffff;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+}
+
+.terminal-detail-rule {
+  color:
+    rgba(255, 255, 255, 0.35);
+
+  white-space: nowrap;
+}
+
+.terminal-output-line {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  min-height: 22px;
+
+  color: #ffffff;
+}
+
+.terminal-detail-status {
+  margin-top: 30px;
+
+  color: #20e0b0;
+
+  font-size: 10px;
+
+  letter-spacing: 0.05em;
+}
+
+
+/* =========================================================
+   RETURN COMMAND
+========================================================= */
+
+.terminal-return {
+  margin-top: 44px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #eeeeee;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.terminal-return > span:first-child {
+  color: #20e0b0;
+}
+
+.terminal-return:hover {
+  color: #20e0b0;
+}
+
+
+/* =========================================================
+   SELECTOR
+========================================================= */
+
+.domain-selector {
+  position: relative;
+}
+
+.selector-heading {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding-bottom: 11px;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  color:
+    rgba(0, 0, 0, 0.58);
+
+  border-bottom:
+    1px solid
+    rgba(0, 0, 0, 0.2);
+
+  letter-spacing: 0.04em;
+}
+
+.selector-list {
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   SELECTOR ROW
+========================================================= */
+
+.domain-selector-item {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 61px;
+
+  display: grid;
+
+  grid-template-columns:
+    42px
+    minmax(0, 1fr)
+    28px;
+
+  align-items: center;
+
+  padding: 0;
+
+  border: 0;
+
+  border-bottom:
+    1px solid
+    rgba(0, 0, 0, 0.14);
+
+  background: transparent;
+
+  text-align: left;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    padding 0.25s ease;
+}
+
+.domain-selector-item::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+
+  top: 0;
+
+  width: 0;
+
+  height: 100%;
+
+  background: #20dcb0;
+
+  transition:
+    width 0.25s ease;
+
+  z-index: 0;
+}
+
+.domain-selector-item:hover::before,
+.domain-selector-item.is-selected::before {
+  width: 100%;
+}
+
+.domain-selector-item:hover,
+.domain-selector-item.is-selected {
+  padding-left: 12px;
+}
+
+.domain-selector-item > span {
+  position: relative;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   DISABLED STATE
+========================================================= */
+
+.domain-selector-item:disabled {
+  cursor: default;
+}
+
+.domain-selector-item:disabled:hover {
+  padding-left: 0;
+}
+
+.domain-selector-item:disabled:hover::before {
+  width: 0;
+}
+
+.domain-selector-item:disabled
+  .selector-name {
+  opacity: 0.42;
+}
+
+
+/* =========================================================
+   FIRST DOMAIN ATTENTION
+========================================================= */
+
+@keyframes selectorAttention {
+  0% {
+    background: transparent;
+  }
+
+  20% {
+    background:
+      rgba(32, 220, 176, 0.18);
+  }
+
+  40% {
+    background: transparent;
+  }
+
+  60% {
+    background:
+      rgba(32, 220, 176, 0.18);
+  }
+
+  80% {
+    background: transparent;
+  }
+
+  100% {
+    background: transparent;
+  }
+}
+
+.domain-selector-item:first-child {
+  animation:
+    selectorAttention
+    1.8s
+    ease
+    1.2s
+    1;
+}
+
+
+/* =========================================================
+   SELECTOR TEXT
+========================================================= */
+
+.selector-number {
+  font-family: monospace;
+
+  font-size: 8px;
+
+  color:
+    rgba(0, 0, 0, 0.48);
+}
+
+.selector-name {
+  font-size:
+    clamp(17px, 1.5vw, 24px);
+
+  font-weight: 700;
+
+  letter-spacing: -0.045em;
+}
+
+.selector-arrow {
+  font-size: 17px;
+
+  opacity: 0;
+
+  transform:
+    translate(-5px, 5px);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.domain-selector-item:hover
+  .selector-arrow,
+.domain-selector-item.is-selected
+  .selector-arrow {
+  opacity: 1;
+
+  transform:
+    translate(0, 0);
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.selector-locked,
+.selector-ready {
+  margin-top: 20px;
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+  letter-spacing: 0.05em;
+}
+
+.selector-locked {
+  color:
+    rgba(0, 0, 0, 0.42);
+}
+
+.selector-ready {
+  color: #068d70;
+}
+
+.selector-ready::before {
+  content: "↳ ";
+
+  display: inline-block;
+
+  margin-right: 3px;
+}
+
+
+/* =========================================================
+   INTERACTION INSTRUCTION
+========================================================= */
+
+.selector-instruction {
+  margin-top: 10px;
+
+  font-family: monospace;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.06em;
+
+  color:
+    rgba(0, 0, 0, 0.72);
+
+  animation:
+    instructionPulse
+    2.8s
+    ease-in-out
+    2;
+}
+
+@keyframes instructionPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.domains-footer {
+  margin-top: 90px;
+
+  padding-top: 14px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  border-top:
+    1px solid
+    rgba(0, 0, 0, 0.18);
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  color:
+    rgba(0, 0, 0, 0.52);
+
+  letter-spacing: 0.05em;
+}
+
+.domains-footer span:last-child {
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.05em;
+
+  color:
+    rgba(0, 0, 0, 0.72);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+  .domains-inner {
+    width:
+      min(
+        calc(100% - 40px),
+        850px
+      );
+  }
+
+  .domains-workspace {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .domain-selector {
+    width: 100%;
+  }
+
+  .domains-intro {
+    margin-left: 40px;
+  }
+}
+
+
+@media (max-width: 650px) {
+  .domains-inner {
+    width:
+      calc(100% - 26px);
+
+    padding-top: 75px;
+  }
+
+  .domains-title {
+    font-size: 20vw;
+  }
+
+  .domains-title-solid {
+    line-height: 0.84;
+
+    letter-spacing: -0.065em;
+  }
+
+  .domains-title-outline {
+    line-height: 0.92;
+
+    margin-top: 0.05em;
+
+    letter-spacing: -0.02em;
+  }
+
+  .domains-intro {
+    margin-left: 0;
+
+    margin-top: 30px;
+  }
+
+  .terminal-window {
+    min-height: 500px;
+
+    box-shadow:
+      7px 8px 0
+      rgba(0, 0, 0, 0.08);
+  }
+
+  .terminal-body {
+    padding: 25px 16px;
+
+    font-size: 10px;
+  }
+
+  .terminal-domain-line {
+    grid-template-columns:
+      30px
+      minmax(0, 1fr)
+      52px;
+  }
+
+  .terminal-domain-status {
+    font-size: 8px;
+  }
+
+  .domain-selector-item {
+    min-height: 55px;
+  }
+
+  .selector-heading {
+    font-size: 8px;
+  }
+
+  .selector-name {
+    font-size: 19px;
+  }
+
+  .selector-instruction {
+    font-size: 10px;
+  }
+
+  .domains-footer {
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  .domains-footer
+    span:last-child {
+    font-size: 10px;
+  }
+}
