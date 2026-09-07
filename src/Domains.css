@@ -920,4 +920,246 @@
     span:last-child {
     font-size: 10px;
   }
+  /* =========================================================
+   FINAL MOBILE OVERFLOW FIX
+   ---------------------------------------------------------
+   Desktop / tablet remain untouched.
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .domains {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .domains-inner {
+    width: calc(100% - 26px);
+    max-width: calc(100vw - 26px);
+    min-width: 0;
+  }
+
+
+  /* -----------------------------------------
+     MAIN HEADING
+  ----------------------------------------- */
+
+  .domains-title {
+    width: 100%;
+    max-width: calc(100vw - 32px);
+
+    font-size:
+      clamp(
+        48px,
+        15vw,
+        72px
+      );
+
+    line-height: 0.84;
+
+    letter-spacing: -0.07em;
+
+    overflow: visible;
+  }
+
+  .domains-title-solid {
+
+    max-width: 100%;
+
+    letter-spacing:
+      -0.07em;
+  }
+
+  .domains-title-outline {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin-top:
+      0.045em;
+
+    letter-spacing:
+      -0.025em;
+
+    padding-right:
+      0.08em;
+
+    white-space: nowrap;
+  }
+
+
+  /* -----------------------------------------
+     INTRO
+  ----------------------------------------- */
+
+  .domains-intro {
+
+    width: 100%;
+
+    max-width:
+      calc(100vw - 44px);
+
+    margin-left: 0;
+
+    margin-top: 28px;
+
+    overflow-wrap:
+      break-word;
+  }
+
+
+  /* -----------------------------------------
+     WORKSPACE
+  ----------------------------------------- */
+
+  .domains-workspace {
+
+    width: 100%;
+
+    min-width: 0;
+
+    overflow: hidden;
+  }
+
+
+  /* -----------------------------------------
+     TERMINAL
+  ----------------------------------------- */
+
+  .terminal-window {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    overflow: hidden;
+  }
+
+  .terminal-body {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    overflow-x: hidden;
+  }
+
+  .terminal-live-line,
+  .terminal-domain-line,
+  .terminal-output-line {
+
+    min-width: 0;
+
+    max-width: 100%;
+  }
+
+  .terminal-live-line > span:nth-child(2) {
+
+    min-width: 0;
+
+    max-width: 100%;
+
+    overflow-wrap: break-word;
+
+    word-break: break-word;
+  }
+
+  .terminal-domain-line {
+
+    grid-template-columns:
+      30px
+      minmax(0, 1fr)
+      52px;
+  }
+
+  .terminal-domain-name {
+
+    min-width: 0;
+
+    overflow-wrap: break-word;
+
+    word-break: break-word;
+  }
+
+
+  /* -----------------------------------------
+     SELECTOR
+  ----------------------------------------- */
+
+  .domain-selector {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+  }
+
+  .domain-selector-item {
+
+    min-width: 0;
+
+    max-width: 100%;
+  }
+
+  .selector-name {
+
+    min-width: 0;
+
+    max-width: 100%;
+
+    font-size: 17px;
+
+    overflow-wrap:
+      break-word;
+
+    word-break:
+      break-word;
+  }
+
+
+  /* -----------------------------------------
+     FOOTER
+  ----------------------------------------- */
+
+  .domains-footer {
+
+    width: 100%;
+
+    max-width: 100%;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .domains-title {
+
+    max-width:
+      calc(100vw - 28px);
+
+    font-size:
+      clamp(
+        44px,
+        14vw,
+        62px
+      );
+  }
+
+  .domains-title-outline {
+
+    letter-spacing:
+      -0.03em;
+  }
+}
 }

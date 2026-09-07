@@ -1153,17 +1153,16 @@ select {
   }
 }
 
+
 /* =========================================================
-   PHONE HERO
+   PHONE-ONLY FIXES
    ---------------------------------------------------------
-   Desktop remains untouched.
+   Desktop/tablet rules above remain unchanged.
 ========================================================= */
 
 @media (max-width: 700px) {
 
-  /* The global DockNav is the navigation on mobile.
-     Hide the old decorative hero controls. */
-
+  /* Remove the duplicate hero header elements behind DockNav. */
   .hero-ui .menu,
   .hero-ui .center-meta,
   .hero-ui .brand {
@@ -1176,37 +1175,26 @@ select {
     pointer-events: none !important;
   }
 
-  /* Keep the hero filling the phone viewport. */
-
-  .hero-wrap,
-  .hero {
-    height: 100svh;
+  /* Make the hero use the phone viewport properly. */
+  .hero,
+  .hero-wrap {
     min-height: 100svh;
+    height: 100svh;
   }
 
-  /* -------------------------------------------------------
-     LOGO
-
-     Keep the stage closer to viewport width and compensate
-     for the SVG's internal horizontal visual offset.
-  ------------------------------------------------------- */
-
+  /* Larger central ACES visual on phones. */
   .hero-visual-stage {
-    left: calc(50% + 6vw) !important;
+    left: 50% !important;
     top: 48% !important;
-
-    width: min(94vw, 470px) !important;
-    height: min(94vw, 470px) !important;
-
+    width: min(112vw, 560px) !important;
+    height: min(112vw, 560px) !important;
     transform: translate(-50%, -50%) !important;
   }
 
   .hero-logo-wrap {
     inset: 0 !important;
-
     width: 100% !important;
     height: 100% !important;
-
     transform: none !important;
   }
 
@@ -1214,40 +1202,29 @@ select {
   .hero-logo-wrap svg {
     width: 100% !important;
     height: 100% !important;
-
-    display: block;
   }
 
-  /* -------------------------------------------------------
-     BACKGROUND TYPOGRAPHY
-  ------------------------------------------------------- */
-
+  /* Let the large technical background typography actually
+     occupy the phone instead of looking shrunken. */
   .hero-tech-word {
-    left: -18% !important;
-    top: -8% !important;
-
-    width: 136% !important;
-    height: 116% !important;
-
-    transform: scale(1.04) !important;
+    left: -25% !important;
+    top: -12% !important;
+    width: 150% !important;
+    height: 125% !important;
+    transform: scale(1.08) !important;
     transform-origin: center center !important;
-
     overflow: hidden !important;
   }
-
-  /* -------------------------------------------------------
-     BOTTOM
-  ------------------------------------------------------- */
 
   .hero-bottom {
     left: 14px !important;
     right: 14px !important;
-
     bottom: 14px !important;
-
-    grid-template-columns: 1fr auto !important;
-
     font-size: 7px;
+  }
+
+  .hero-bottom {
+    grid-template-columns: 1fr auto !important;
   }
 
   .hero-bottom > span:last-child {
@@ -1255,26 +1232,45 @@ select {
   }
 }
 
-
-/* =========================================================
-   SMALL PHONES
-========================================================= */
-
 @media (max-width: 420px) {
 
   .hero-visual-stage {
-    left: calc(50% + 7vw) !important;
     top: 48% !important;
-
-    width: min(96vw, 430px) !important;
-    height: min(96vw, 430px) !important;
+    width: min(118vw, 500px) !important;
+    height: min(118vw, 500px) !important;
   }
 
   .hero-tech-word {
-    left: -22% !important;
-    top: -9% !important;
+    left: -32.5% !important;
+    top: -15% !important;
+    width: 165% !important;
+    height: 130% !important;
+  }
+}
 
-    width: 144% !important;
-    height: 118% !important;
+
+/* =========================================================
+   TEAM TAGLINE SPACING FIX
+   ---------------------------------------------------------
+   Prevent "The people who keep ACES moving." from touching
+   the heading on shorter/smaller-height displays.
+   Desktop/tablet only; mobile uses normal document flow.
+========================================================= */
+
+@media (min-width: 701px) {
+  .team-description {
+    top: 31vh;
+  }
+}
+
+@media (max-width: 700px) {
+  .team-heading {
+    margin-bottom: 32px;
+  }
+
+  .team-description {
+    margin-top: 0;
+    margin-bottom: 26px;
+    line-height: 1.5;
   }
 }

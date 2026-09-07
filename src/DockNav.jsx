@@ -41,14 +41,12 @@ export default function DockNav() {
       .filter((item) => item.element);
 
     const handleScroll = () => {
-      const triggerPoint =
-        window.innerHeight * 0.35;
+      const triggerPoint = window.innerHeight * 0.35;
 
       let currentSection = "home";
 
       sections.forEach((section) => {
-        const rect =
-          section.element.getBoundingClientRect();
+        const rect = section.element.getBoundingClientRect();
 
         if (
           rect.top <= triggerPoint &&
@@ -63,27 +61,15 @@ export default function DockNav() {
 
     handleScroll();
 
-    window.addEventListener(
-      "scroll",
-      handleScroll,
-      { passive: true }
-    );
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
-    window.addEventListener(
-      "resize",
-      handleScroll
-    );
+    window.addEventListener("resize", handleScroll);
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-
-      window.removeEventListener(
-        "resize",
-        handleScroll
-      );
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, []);
 
@@ -92,11 +78,6 @@ export default function DockNav() {
   ========================================================= */
 
   const scrollToSection = (id) => {
-    /*
-      HOME is special because the Hero is pinned by GSAP.
-      Going directly to scroll position 0 avoids offsets.
-    */
-
     if (id === "home") {
       window.scrollTo({
         top: 0,
@@ -106,14 +87,12 @@ export default function DockNav() {
       return;
     }
 
-    const section =
-      document.getElementById(id);
+    const section = document.getElementById(id);
 
     if (!section) return;
 
     const top =
-      section.getBoundingClientRect().top +
-      window.scrollY;
+      section.getBoundingClientRect().top + window.scrollY;
 
     window.scrollTo({
       top,
@@ -122,10 +101,10 @@ export default function DockNav() {
   };
 
   /* =========================================================
-     RECRUIT
+     APPLY
   ========================================================= */
 
-  const goToRecruit = () => {
+  const goToApply = () => {
     window.location.href = "/recruit";
   };
 
@@ -139,14 +118,11 @@ export default function DockNav() {
       <button
         type="button"
         className="dock-brand"
-        onClick={() =>
-          scrollToSection("home")
-        }
+        onClick={() => scrollToSection("home")}
         aria-label="ACES Home"
       >
         ACES<span>/</span>
       </button>
-
 
       {/* =====================================================
           MAIN DOCK
@@ -157,11 +133,8 @@ export default function DockNav() {
         <div className="dock-items">
 
           {navItems.map((item) => {
-            const isHovered =
-              hovered === item.id;
-
-            const isActive =
-              active === item.id;
+            const isHovered = hovered === item.id;
+            const isActive = active === item.id;
 
             return (
               <button
@@ -172,15 +145,9 @@ export default function DockNav() {
                   ${isActive ? "is-active" : ""}
                   ${isHovered ? "is-hovered" : ""}
                 `}
-                onMouseEnter={() =>
-                  setHovered(item.id)
-                }
-                onMouseLeave={() =>
-                  setHovered(null)
-                }
-                onClick={() =>
-                  scrollToSection(item.id)
-                }
+                onMouseEnter={() => setHovered(item.id)}
+                onMouseLeave={() => setHovered(null)}
+                onClick={() => scrollToSection(item.id)}
                 aria-label={item.label}
               >
                 <span className="dock-number">
@@ -196,51 +163,39 @@ export default function DockNav() {
 
         </div>
 
-
         {/* =================================================
             DIVIDER
         ================================================= */}
 
         <div className="dock-divider" />
 
-
         {/* =================================================
-            RECRUIT
+            APPLY
         ================================================= */}
 
         <button
           type="button"
           className={`
             dock-recruit
-            ${
-              hovered === "recruit"
-                ? "is-hovered"
-                : ""
-            }
+            ${hovered === "apply" ? "is-hovered" : ""}
           `}
-          onMouseEnter={() =>
-            setHovered("recruit")
-          }
-          onMouseLeave={() =>
-            setHovered(null)
-          }
-          onClick={goToRecruit}
+          onMouseEnter={() => setHovered("apply")}
+          onMouseLeave={() => setHovered(null)}
+          onClick={goToApply}
+          aria-label="Apply to ACES"
         >
-
           <span className="dock-recruit-dot" />
 
           <span className="dock-recruit-label">
-            RECRUIT
+            APPLY
           </span>
 
           <span className="dock-recruit-arrow">
             ↗
           </span>
-
         </button>
 
       </div>
-
     </nav>
   );
 }

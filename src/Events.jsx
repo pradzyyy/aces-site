@@ -75,21 +75,9 @@ export default function Events() {
             </div>
 
             <div className="event-action-wrap">
-
               <div className="event-meta-small">
                 VALUE ADDED COURSE
               </div>
-
-              <button
-                type="button"
-                className="event-action"
-              >
-                <span>VIEW EVENT</span>
-                <span className="event-action-arrow">
-                  ↗
-                </span>
-              </button>
-
             </div>
 
           </article>
@@ -192,17 +180,6 @@ export default function Events() {
               <div className="event-meta-small">
                 DATE TBA
               </div>
-
-              <button
-                type="button"
-                className="event-action"
-              >
-                <span>VIEW DETAILS</span>
-
-                <span className="event-action-arrow">
-                  ↗
-                </span>
-              </button>
 
             </div>
 

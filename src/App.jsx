@@ -10,9 +10,6 @@ import Domains from "./Domains";
 import Events from "./Events";
 import DockNav from "./DockNav";
 import Recruit from "./Recruit";
-import ConsoleLogin from "./ConsoleLogin";
-import Console from "./Console";
-import ResetPassword from "./ResetPassword";
 
 import "./App.css";
 
@@ -27,22 +24,8 @@ export default function App() {
      /       -> main ACES site
   ========================================================= */
 
-  const path = window.location.pathname.replace(/\/+$/, "") || "/";
-
-  if (path === "/recruit") {
+  if (window.location.pathname === "/recruit") {
     return <Recruit />;
-  }
-
-  if (path === "/console/login") {
-    return <ConsoleLogin />;
-  }
-
-  if (path === "/reset-password") {
-    return <ResetPassword />;
-  }
-
-  if (path === "/console") {
-    return <Console />;
   }
 
   const root = useRef(null);
@@ -101,14 +84,20 @@ export default function App() {
 
       /* =====================================================
          TEAM
-         
-         Sequence:
-         1. Leadership cards enter from outside -> center.
-         2. They briefly hold in center.
-         3. They move to final positions.
-         4. Supporting cards appear afterward.
+
+         Desktop/tablet only:
+         Leadership cards enter from outside -> center, then
+         park into their final positions, followed by support.
+
+         MOBILE:
+         Disable the desktop ScrollTrigger/pinning animation
+         completely. The CSS mobile layout becomes a normal
+         document flow so every card is simply scrolled through.
       ===================================================== */
 
+      const isMobile = window.matchMedia("(max-width: 700px)").matches;
+
+      if (!isMobile) {
       const teamTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: ".team-wrap",
@@ -346,6 +335,80 @@ export default function App() {
         });
       }
 
+
+      } else {
+        /* =====================================================
+           MOBILE TEAM CARD REVEALS
+           -----------------------------------------------------
+           Normal document flow is preserved on phones.
+           Cards fade/slide in as they enter the viewport and
+           fade back out as they leave it.
+
+           No pinning. No artificial 500vh scroll sequence.
+        ===================================================== */
+
+        const mobileCards = gsap.utils.toArray(".team-card-slot");
+
+        mobileCards.forEach((card) => {
+          gsap.set(card, {
+            autoAlpha: 0,
+            y: 24,
+            scale: 0.985,
+            transformOrigin: "50% 50%",
+          });
+
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top 84%",
+            end: "bottom 16%",
+
+            onEnter: () => {
+              gsap.to(card, {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.55,
+                ease: "power3.out",
+                overwrite: true,
+              });
+            },
+
+            onLeave: () => {
+              gsap.to(card, {
+                autoAlpha: 0,
+                y: -18,
+                scale: 0.985,
+                duration: 0.40,
+                ease: "power2.inOut",
+                overwrite: true,
+              });
+            },
+
+            onEnterBack: () => {
+              gsap.to(card, {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.50,
+                ease: "power3.out",
+                overwrite: true,
+              });
+            },
+
+            onLeaveBack: () => {
+              gsap.to(card, {
+                autoAlpha: 0,
+                y: 24,
+                scale: 0.985,
+                duration: 0.40,
+                ease: "power2.inOut",
+                overwrite: true,
+              });
+            },
+          });
+        });
+      }
+
     }, root);
 
     return () => ctx.revert();
@@ -511,8 +574,8 @@ export default function App() {
               avatarUrl="/team/pradyumn.jpeg"
               accent="mint"
               meta="ACES // 2026"
-              instagram="https://www.instagram.com/pradzyyy"
-              linkedin="https://www.linkedin.com/in/pradyumnpandhurnekar/"
+              instagram="#"
+              linkedin="#"
             />
 
           </div>
@@ -531,8 +594,8 @@ export default function App() {
               avatarUrl="/team/khushi.jpeg"
               accent="blue"
               meta="ACES // 2026"
-              instagram="https://www.instagram.com/khushikhu_08"
-              linkedin="https://www.linkedin.com/in/khushi-zaware-58ba9331b/"
+              instagram="#"
+              linkedin="#"
             />
 
           </div>
@@ -551,8 +614,8 @@ export default function App() {
               avatarUrl="/team/siddhesh.jpeg"
               accent="blue"
               meta="ACES // 2026"
-              instagram="https://www.instagram.com/a_neww_sid"
-              linkedin="https://www.linkedin.com/in/siddhesh-jadhav-uwu/"
+              instagram="#"
+              linkedin="#"
             />
 
           </div>
@@ -571,8 +634,8 @@ export default function App() {
               avatarUrl="/team/anush.jpeg"
               accent="violet"
               meta="ACES // 2026"
-              instagram="https://www.instagram.com/acesdypcoe"
-              linkedin="https://www.linkedin.com/in/anush-chawla-154388315/"
+              instagram="#"
+              linkedin="#"
             />
 
           </div>

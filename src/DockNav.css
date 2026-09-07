@@ -23,10 +23,7 @@
   border: 0;
   background: transparent;
   color: #ffffff;
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   font-weight: 800;
   letter-spacing: -0.05em;
@@ -60,8 +57,7 @@
   background: rgba(5, 5, 5, 0.18);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
 }
 
 /* =========================================================
@@ -96,21 +92,15 @@
     background 0.2s ease;
 }
 
-/* HOVER */
-
 .dock-item:hover {
   transform: scale(1.14);
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* ACTIVE */
-
 .dock-item.is-active {
   color: #ffffff;
 }
-
-/* ACTIVE DOT */
 
 .dock-item.is-active::after {
   content: "";
@@ -160,7 +150,7 @@
 }
 
 /* =========================================================
-   RECRUIT
+   APPLY
 ========================================================= */
 
 .dock-recruit {
@@ -185,16 +175,12 @@
     color 0.2s ease;
 }
 
-/* RECRUIT HOVER */
-
 .dock-recruit.is-hovered {
   transform: scale(1.12);
   background: rgba(255, 255, 255, 0.09);
   border-color: rgba(32, 224, 176, 0.75);
   color: #20e0b0;
 }
-
-/* SMALL DOT */
 
 .dock-recruit-dot {
   width: 4px;
@@ -208,11 +194,8 @@
 
 .dock-recruit.is-hovered .dock-recruit-dot {
   background: #20e0b0;
-  box-shadow:
-    0 0 8px rgba(32, 224, 176, 0.65);
+  box-shadow: 0 0 8px rgba(32, 224, 176, 0.65);
 }
-
-/* ARROW */
 
 .dock-recruit-arrow {
   font-size: 13px;
@@ -225,7 +208,9 @@
 
 /* =========================================================
    MOBILE
-   ========================================================= */
+   ---------------------------------------------------------
+   Desktop remains unchanged.
+========================================================= */
 
 @media (max-width: 700px) {
 
@@ -233,93 +218,57 @@
     top: 9px;
     left: 0;
     right: 0;
-
     width: 100%;
-
-    display: flex;
-    align-items: flex-start;
     justify-content: flex-start;
   }
 
-  /* -------------------------------------------------------
-     ACES BRAND
-  ------------------------------------------------------- */
-
   .dock-brand {
-    position: absolute;
-
-    left: 12px;
+    left: 11px;
     top: 4px;
-
     padding: 6px 0;
-
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1;
-
-    z-index: 3;
   }
 
-  /* -------------------------------------------------------
-     NAV DOCK
-
-     More room + readable labels.
-  ------------------------------------------------------- */
-
   .dock {
-    margin-left: 68px;
-    margin-right: 9px;
+    margin-left: 67px;
+    margin-right: 7px;
 
-    width: calc(100vw - 77px);
+    width: calc(100vw - 74px);
     max-width: none;
 
     padding: 3px;
-
     gap: 2px;
-
     border-radius: 9px;
 
     overflow: visible;
   }
 
   .dock-items {
-    width: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    gap: 1px;
-
-    min-width: 0;
+    gap: 0;
   }
-
-  /* -------------------------------------------------------
-     NAV ITEMS
-  ------------------------------------------------------- */
 
   .dock-item {
     flex: 1 1 0;
-
     min-width: 0;
-    width: auto;
 
     height: 35px;
-
-    padding: 0 4px;
+    padding: 0 3px;
 
     gap: 0;
-
     border-radius: 6px;
   }
 
   .dock-label {
-    display: block;
-
     font-size: 8px;
-    font-weight: 600;
-
-    letter-spacing: 0.035em;
-
+    letter-spacing: 0.025em;
     white-space: nowrap;
     text-align: center;
   }
@@ -338,36 +287,23 @@
     bottom: 2px;
   }
 
-  /* -------------------------------------------------------
-     DIVIDER
-  ------------------------------------------------------- */
-
   .dock-divider {
     flex: 0 0 1px;
-
     height: 19px;
-
-    margin: 0 1px;
+    margin: 0 2px;
   }
-
-  /* -------------------------------------------------------
-     RECRUIT
-  ------------------------------------------------------- */
 
   .dock-recruit {
     flex: 0 0 auto;
 
     height: 35px;
+    padding: 0 7px;
 
-    padding: 0 8px;
-
-    gap: 5px;
-
+    gap: 4px;
     border-radius: 6px;
 
     font-size: 8px;
-    letter-spacing: 0.04em;
-
+    letter-spacing: 0.035em;
     white-space: nowrap;
   }
 
@@ -386,11 +322,6 @@
   }
 }
 
-
-/* =========================================================
-   VERY SMALL PHONES
-   ========================================================= */
-
 @media (max-width: 420px) {
 
   .dock-nav {
@@ -398,40 +329,37 @@
   }
 
   .dock-brand {
-    left: 10px;
+    left: 9px;
     top: 4px;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .dock {
-    margin-left: 62px;
-    margin-right: 7px;
+    margin-left: 59px;
+    margin-right: 5px;
 
-    width: calc(100vw - 69px);
-
+    width: calc(100vw - 64px);
     padding: 2px;
   }
 
   .dock-item {
-    height: 34px;
-    padding: 0 3px;
+    height: 33px;
+    padding: 0 2px;
   }
 
   .dock-label {
-    font-size: 7.5px;
-    letter-spacing: 0.025em;
-  }
-
-  .dock-divider {
-    height: 18px;
+    font-size: 7px;
+    letter-spacing: 0.02em;
   }
 
   .dock-recruit {
-    height: 34px;
+    height: 33px;
+    padding: 0 6px;
+    font-size: 7px;
+  }
 
-    padding: 0 7px;
-
-    font-size: 7.5px;
+  .dock-divider {
+    margin: 0 1px;
   }
 
   .dock-recruit-arrow {

@@ -77,10 +77,14 @@
   align-items: flex-end;
 
   gap: 40px;
+
+  min-width: 0;
 }
 
 .events-title {
   margin: 0;
+
+  max-width: 100%;
 
   font-family:
     Arial,
@@ -101,6 +105,8 @@
   letter-spacing: -0.065em;
 
   text-transform: uppercase;
+
+  overflow-wrap: normal;
 }
 
 .events-title span {
@@ -130,6 +136,8 @@
   gap: 5px;
 
   margin-bottom: 5px;
+
+  flex-shrink: 0;
 
   font-family: monospace;
 
@@ -268,6 +276,8 @@
   gap: 20px;
 
   margin-bottom: 13px;
+
+  min-width: 0;
 }
 
 .event-label,
@@ -284,6 +294,8 @@
 
 .event-title-main {
   margin: 0;
+
+  max-width: 100%;
 
   font-family:
     Arial,
@@ -302,6 +314,8 @@
   font-weight: 800;
 
   letter-spacing: -0.055em;
+
+  overflow-wrap: break-word;
 
   transition:
     transform 0.3s
@@ -353,11 +367,15 @@
   gap: 7px;
 
   color: #068d70;
+
+  flex-shrink: 0;
 }
 
 .status-dot {
   width: 5px;
   height: 5px;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
@@ -392,9 +410,11 @@
 
   align-items: flex-end;
 
-  justify-content: space-between;
+  justify-content: flex-end;
 
   min-height: 120px;
+
+  min-width: 0;
 }
 
 .event-meta-small {
@@ -408,6 +428,8 @@
 
   color:
     rgba(0, 0, 0, 0.42);
+
+  max-width: 100%;
 }
 
 
@@ -421,6 +443,8 @@
   align-items: center;
 
   gap: 10px;
+
+  margin-top: 16px;
 
   padding:
     8px 0;
@@ -519,10 +543,11 @@
 
 
 /* =========================================================
-   RESPONSIVE
+   TABLET
 ========================================================= */
 
 @media (max-width: 900px) {
+
   .events-inner {
     width:
       calc(100% - 50px);
@@ -549,10 +574,27 @@
 }
 
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 700px) {
+
+  .events {
+    width: 100%;
+    max-width: 100vw;
+
+    overflow-x: hidden;
+  }
+
   .events-inner {
+
     width:
       calc(100% - 26px);
+
+    max-width: calc(100vw - 26px);
+
+    min-width: 0;
 
     padding:
       70px
@@ -560,20 +602,79 @@
       20px;
   }
 
+
+  /* -----------------------------------------
+     HEADER
+  ----------------------------------------- */
+
   .events-header {
+    width: 100%;
+
     margin-bottom: 45px;
   }
 
-  .events-title {
-    font-size: 19vw;
+  .events-header-main {
+    width: 100%;
+
+    display: block;
   }
 
+  .events-title {
+
+    width: 100%;
+
+    max-width:
+      calc(100vw - 36px);
+
+    font-size:
+      clamp(
+        46px,
+        15vw,
+        72px
+      );
+
+    line-height: 0.82;
+
+    letter-spacing: -0.075em;
+
+    white-space: normal;
+
+    overflow: visible;
+  }
+
+  .events-title span {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin-top: 0.03em;
+
+    letter-spacing: -0.02em;
+
+    white-space: nowrap;
+
+    padding-right: 0.08em;
+
+    -webkit-text-stroke:
+      1px rgba(0, 0, 0, 0.62);
+  }
+
+
+  /* -----------------------------------------
+     EVENT LIST
+  ----------------------------------------- */
+
   .events-list {
-    justify-content: flex-start;
+    width: 100%;
+
+    justify-content:
+      flex-start;
   }
 
   .event-row {
-    display: grid;
+
+    width: 100%;
 
     grid-template-columns:
       32px
@@ -586,7 +687,23 @@
       0;
   }
 
+  .event-number {
+    min-width: 0;
+  }
+
+  .event-main {
+    min-width: 0;
+
+    width: 100%;
+  }
+
+
+  /* -----------------------------------------
+     TOPLINE
+  ----------------------------------------- */
+
   .event-topline {
+
     display: flex;
 
     flex-direction: column;
@@ -594,18 +711,87 @@
     align-items: flex-start;
 
     gap: 6px;
+
+    margin-bottom: 13px;
+
+    width: 100%;
   }
+
+  .event-label,
+  .event-status {
+    max-width: 100%;
+
+    white-space: normal;
+
+    line-height: 1.4;
+  }
+
+
+  /* -----------------------------------------
+     EVENT TITLE
+  ----------------------------------------- */
 
   .event-title-main {
-    font-size: 11vw;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    font-size:
+      clamp(
+        28px,
+        9.5vw,
+        46px
+      );
+
+    line-height: 0.9;
+
+    letter-spacing:
+      -0.055em;
+
+    overflow-wrap:
+      anywhere;
   }
+
+  .event-row:hover
+    .event-title-main {
+    transform: none;
+  }
+
+
+  /* -----------------------------------------
+     DESCRIPTION
+  ----------------------------------------- */
 
   .event-description {
-    font-size: 10px;
+
+    width: 100%;
+
+    max-width:
+      calc(100vw - 70px);
+
+    margin-top: 17px;
+
+    font-size: 9px;
+
+    line-height: 1.75;
+
+    overflow-wrap:
+      break-word;
   }
 
+
+  /* -----------------------------------------
+     ACTION AREA
+  ----------------------------------------- */
+
   .event-action-wrap {
+
     grid-column: 2;
+
+    width: 100%;
+
+    min-width: 0;
 
     min-height: auto;
 
@@ -615,14 +801,39 @@
 
     align-items: center;
 
-    justify-content: space-between;
+    justify-content:
+      space-between;
+
+    gap: 12px;
   }
 
   .event-meta-small {
+
+    max-width: 70%;
+
     text-align: left;
+
+    line-height: 1.5;
   }
 
+  .event-action {
+
+    flex-shrink: 0;
+
+    margin-top: 0;
+
+    font-size: 8px;
+  }
+
+
+  /* -----------------------------------------
+     FOOTER
+  ----------------------------------------- */
+
   .events-footer {
+
+    width: 100%;
+
     display: flex;
 
     flex-direction: column;
@@ -634,6 +845,64 @@
     span:nth-child(2),
   .events-footer
     span:last-child {
+
     text-align: left;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .events-inner {
+    width:
+      calc(100% - 22px);
+
+    max-width:
+      calc(100vw - 22px);
+  }
+
+  .events-title {
+
+    max-width:
+      calc(100vw - 30px);
+
+    font-size:
+      clamp(
+        43px,
+        14.5vw,
+        62px
+      );
+  }
+
+  .events-title span {
+    letter-spacing:
+      -0.025em;
+  }
+
+  .event-row {
+
+    grid-template-columns:
+      28px
+      minmax(0, 1fr);
+
+    gap: 12px;
+  }
+
+  .event-title-main {
+    font-size:
+      clamp(
+        26px,
+        9.2vw,
+        40px
+      );
+  }
+
+  .event-description {
+    max-width:
+      calc(100vw - 62px);
   }
 }

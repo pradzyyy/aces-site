@@ -273,6 +273,41 @@ export default function Domains() {
     setSelectedDomain(domain);
     setScanComplete(false);
 
+    /*
+      MOBILE ONLY
+
+      On phones, the domain selector appears below the terminal.
+      After selecting a domain, smoothly bring the terminal back
+      into view so the user can immediately watch the detail
+      sequence happen.
+
+      Desktop behavior is completely unchanged.
+    */
+    if (
+      window.matchMedia(
+        "(max-width: 650px)"
+      ).matches
+    ) {
+      requestAnimationFrame(() => {
+        const terminal =
+          sectionRef.current?.querySelector(
+            ".terminal-window"
+          );
+
+        if (!terminal) return;
+
+        const terminalTop =
+          terminal.getBoundingClientRect().top +
+          window.scrollY -
+          72;
+
+        window.scrollTo({
+          top: Math.max(0, terminalTop),
+          behavior: "smooth",
+        });
+      });
+    }
+
     setTerminalLines([]);
     setTyping("");
 
@@ -514,7 +549,9 @@ export default function Domains() {
     >
       <div className="domains-inner">
 
-        {/* HEADER */}
+        {/* =====================================================
+            HEADER
+        ===================================================== */}
 
         <header className="domains-header">
 
@@ -543,20 +580,26 @@ export default function Domains() {
         </header>
 
 
-        {/* WORKSPACE */}
+        {/* =====================================================
+            WORKSPACE
+        ===================================================== */}
 
         <div className="domains-workspace">
 
-          {/* TERMINAL */}
+          {/* =================================================
+              TERMINAL
+          ================================================= */}
 
           <div className="terminal-window">
 
             <div className="terminal-topbar">
 
               <div className="terminal-dots">
+
                 <span className="dot dot-red"></span>
                 <span className="dot dot-yellow"></span>
                 <span className="dot dot-green"></span>
+
               </div>
 
               <span className="terminal-path">
@@ -577,6 +620,10 @@ export default function Domains() {
               {terminalLines.map(
                 (line, index) => {
 
+                  /* -----------------------------------------
+                     DIVIDER
+                  ----------------------------------------- */
+
                   if (
                     line.type === "divider"
                   ) {
@@ -590,6 +637,11 @@ export default function Domains() {
                     );
                   }
 
+
+                  /* -----------------------------------------
+                     DOMAIN LINE
+                  ----------------------------------------- */
+
                   if (
                     line.type === "domain"
                   ) {
@@ -598,6 +650,7 @@ export default function Domains() {
                         key={index}
                         className="terminal-domain-line"
                       >
+
                         <span className="terminal-domain-number">
                           {line.number}
                         </span>
@@ -609,9 +662,15 @@ export default function Domains() {
                         <span className="terminal-domain-status">
                           ACTIVE
                         </span>
+
                       </div>
                     );
                   }
+
+
+                  /* -----------------------------------------
+                     DETAIL TITLE
+                  ----------------------------------------- */
 
                   if (
                     line.type === "title"
@@ -626,6 +685,11 @@ export default function Domains() {
                     );
                   }
 
+
+                  /* -----------------------------------------
+                     DETAIL RULE
+                  ----------------------------------------- */
+
                   if (
                     line.type === "rule"
                   ) {
@@ -639,6 +703,11 @@ export default function Domains() {
                     );
                   }
 
+
+                  /* -----------------------------------------
+                     OUTPUT
+                  ----------------------------------------- */
+
                   if (
                     line.type === "output"
                   ) {
@@ -647,6 +716,7 @@ export default function Domains() {
                         key={index}
                         className="terminal-output-line"
                       >
+
                         <span className="prompt-symbol">
                           {line.prefix}
                         </span>
@@ -654,9 +724,15 @@ export default function Domains() {
                         <span>
                           {line.text}
                         </span>
+
                       </div>
                     );
                   }
+
+
+                  /* -----------------------------------------
+                     STATUS
+                  ----------------------------------------- */
 
                   if (
                     line.type === "status"
@@ -671,6 +747,11 @@ export default function Domains() {
                     );
                   }
 
+
+                  /* -----------------------------------------
+                     COMMAND / INFO / PROMPT
+                  ----------------------------------------- */
+
                   return (
                     <div
                       key={index}
@@ -684,6 +765,7 @@ export default function Domains() {
                         }`
                       }
                     >
+
                       <span className="prompt-symbol">
                         {line.prefix}
                       </span>
@@ -691,13 +773,16 @@ export default function Domains() {
                       <span>
                         {line.text}
                       </span>
+
                     </div>
                   );
                 }
               )}
 
 
-              {/* LIVE TYPING */}
+              {/* =================================================
+                  LIVE TYPING
+              ================================================= */}
 
               {typing && (
                 <div className="terminal-line terminal-live-line">
@@ -726,7 +811,9 @@ export default function Domains() {
               )}
 
 
-              {/* RETURN COMMAND */}
+              {/* =================================================
+                  RETURN COMMAND
+              ================================================= */}
 
               {selectedDomain &&
                 scanComplete &&
@@ -759,10 +846,13 @@ export default function Domains() {
                 )}
 
             </div>
+
           </div>
 
 
-          {/* DOMAIN SELECTOR */}
+          {/* =================================================
+              DOMAIN SELECTOR
+          ================================================= */}
 
           <aside className="domain-selector">
 
@@ -846,7 +936,9 @@ export default function Domains() {
         </div>
 
 
-        {/* FOOTER */}
+        {/* =====================================================
+            FOOTER
+        ===================================================== */}
 
         <div className="domains-footer">
 
