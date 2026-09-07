@@ -1273,4 +1273,50 @@ select {
     margin-bottom: 26px;
     line-height: 1.5;
   }
+  /* =========================================================
+   FINAL PHONE LOGO CENTERING FIX
+   ---------------------------------------------------------
+   Desktop remains untouched.
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .hero-visual-stage {
+    left: 50% !important;
+    top: 48% !important;
+
+    width: min(94vw, 470px) !important;
+    height: min(94vw, 470px) !important;
+
+    /*
+      The SVG is visually asymmetric, so give the artwork
+      a small rightward compensation while keeping the
+      stage itself centered.
+    */
+    transform:
+      translate(
+        calc(-50% + 24px),
+        -50%
+      ) !important;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .hero-visual-stage {
+    left: 50% !important;
+    top: 48% !important;
+
+    width: min(96vw, 430px) !important;
+    height: min(96vw, 430px) !important;
+
+    transform:
+      translate(
+        calc(-50% + 20px),
+        -50%
+      ) !important;
+  }
+
+}
 }
