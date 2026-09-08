@@ -10,6 +10,8 @@ import Domains from "./Domains";
 import Events from "./Events";
 import DockNav from "./DockNav";
 import Recruit from "./Recruit";
+import Console from "./Console";
+import ConsoleLogin from "./ConsoleLogin";
 
 import "./App.css";
 
@@ -18,14 +20,26 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
 
   /* =========================================================
-     RECRUITMENT ROUTE
-     
-     /recruit -> recruitment page
-     /       -> main ACES site
+     ROUTING
+
+     /                 -> main ACES site
+     /recruit          -> public recruitment page
+     /console/login    -> private console login
+     /console          -> private recruitment console
   ========================================================= */
 
-  if (window.location.pathname === "/recruit") {
+  const pathname = window.location.pathname;
+
+  if (pathname === "/recruit") {
     return <Recruit />;
+  }
+
+  if (pathname === "/console/login") {
+    return <ConsoleLogin />;
+  }
+
+  if (pathname === "/console") {
+    return <Console />;
   }
 
   const root = useRef(null);
@@ -574,8 +588,8 @@ export default function App() {
               avatarUrl="/team/pradyumn.jpeg"
               accent="mint"
               meta="ACES // 2026"
-              instagram="#"
-              linkedin="#"
+              instagram="https://www.instagram.com/pradzyyy"
+              linkedin="https://www.linkedin.com/in/pradyumnpandhurnekar"
             />
 
           </div>
@@ -594,8 +608,8 @@ export default function App() {
               avatarUrl="/team/khushi.jpeg"
               accent="blue"
               meta="ACES // 2026"
-              instagram="#"
-              linkedin="#"
+              instagram="https://www.instagram.com/khushikhu_08"
+              linkedin="https://www.linkedin.com/in/khushi-zaware-58ba9331b/"
             />
 
           </div>
@@ -614,8 +628,8 @@ export default function App() {
               avatarUrl="/team/siddhesh.jpeg"
               accent="blue"
               meta="ACES // 2026"
-              instagram="#"
-              linkedin="#"
+              instagram="https://www.instagram.com/a_neww_sid"
+              linkedin="https://www.linkedin.com/in/siddhesh-jadhav-uwu/"
             />
 
           </div>
@@ -634,8 +648,8 @@ export default function App() {
               avatarUrl="/team/anush.jpeg"
               accent="violet"
               meta="ACES // 2026"
-              instagram="#"
-              linkedin="#"
+              instagram="https://www.instagram.com/acesdypcoe"
+              linkedin="https://www.linkedin.com/in/anush-chawla-154388315/"
             />
 
           </div>
