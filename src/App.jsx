@@ -669,7 +669,7 @@ export default function App() {
               compact
               member1="Chandan Wani"
               member2="Abhishek Kumar Jha"
-              member3="Salyyad Zaki Ali"
+              member3="Saiyyad Zaki Ali"
               member4="Nirav Warade"
               instagram="#"
               linkedin="#"
