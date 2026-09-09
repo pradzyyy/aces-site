@@ -185,6 +185,9 @@ export default function Console() {
           .includes(query) ||
         application.primary_domain
           ?.toLowerCase()
+          .includes(query) ||
+        application.secondary_domain
+          ?.toLowerCase()
           .includes(query);
 
       const matchesStatus =
@@ -546,9 +549,15 @@ export default function Console() {
                         </td>
 
                         <td>
-                          {
-                            application.primary_domain
-                          }
+                          <div className="console-domain-primary">
+                            {application.primary_domain || "—"}
+                          </div>
+
+                          {application.secondary_domain && (
+                            <div className="console-domain-secondary">
+                              + {application.secondary_domain}
+                            </div>
+                          )}
                         </td>
 
                         <td>
@@ -1118,6 +1127,20 @@ const consoleStyles = `
     font-family: "DM Mono", monospace;
     font-size: 8px;
     letter-spacing: .04em;
+  }
+
+  .console-domain-primary {
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .console-domain-secondary {
+    margin-top: 4px;
+    color: #777;
+    font-family: "DM Mono", monospace;
+    font-size: 7px;
+    letter-spacing: .03em;
+    line-height: 1.2;
   }
 
   .console-empty {
