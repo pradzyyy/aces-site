@@ -9,9 +9,9 @@ import StrokeText from "./StrokeText";
 import Domains from "./Domains";
 import Events from "./Events";
 import DockNav from "./DockNav";
+import Recruit from "./Recruit";
 import Console from "./Console";
 import ConsoleLogin from "./ConsoleLogin";
-import SyCodes from "./SyCodes";
 
 import "./App.css";
 
@@ -23,14 +23,15 @@ export default function App() {
      ROUTING
 
      /                 -> main ACES site
+     /recruit          -> public recruitment page
      /console/login    -> private console login
      /console          -> private recruitment console
   ========================================================= */
 
   const pathname = window.location.pathname;
 
-  if (pathname === "/sycodes") {
-    return <SyCodes />;
+  if (pathname === "/recruit") {
+    return <Recruit />;
   }
 
   if (pathname === "/console/login") {

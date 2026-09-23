@@ -101,11 +101,11 @@ export default function DockNav() {
   };
 
   /* =========================================================
-     APPLY
+     REGISTER
   ========================================================= */
 
-  const goToApply = () => {
-    window.location.href = "/recruit";
+  const goToRegister = () => {
+    window.location.href = "/sycodes";
   };
 
   return (
@@ -181,13 +181,13 @@ export default function DockNav() {
           `}
           onMouseEnter={() => setHovered("apply")}
           onMouseLeave={() => setHovered(null)}
-          onClick={goToApply}
-          aria-label="Apply to ACES"
+          onClick={goToRegister}
+          aria-label="Register for SE Coding Competition"
         >
           <span className="dock-recruit-dot" />
 
           <span className="dock-recruit-label">
-            APPLY
+            REGISTER
           </span>
 
           <span className="dock-recruit-arrow">

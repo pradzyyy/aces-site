@@ -166,6 +166,9 @@ select {
 }
 
 .center-meta {
+  grid-column: 2;
+  justify-self: center;
+
   color: #4e4d49;
 
   font:
@@ -176,6 +179,7 @@ select {
 }
 
 .menu {
+  grid-column: 3;
   justify-self: end;
 
   font:

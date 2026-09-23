@@ -2,8 +2,8 @@ import React from "react";
 import "./Events.css";
 
 export default function Events() {
-  const goToSyCodes = () => {
-    window.location.href = "/sycodes";
+  const goToRecruit = () => {
+    window.location.href = "/recruit";
   };
 
   return (
@@ -87,7 +87,7 @@ export default function Events() {
               EVENT 02 — RECRUITMENT
           ================================================= */}
 
-          <article className="event-row">
+          <article className="event-row event-row-upcoming">
 
             <div className="event-number">
               02
@@ -96,12 +96,13 @@ export default function Events() {
             <div className="event-main">
 
               <div className="event-topline">
-                <span className="event-label">
-                  PAST EVENT
+                <span className="event-label event-label-upcoming">
+                  UPCOMING
                 </span>
 
-                <span className="event-status">
-                  COMPLETED · 2026
+                <span className="event-status event-status-open">
+                  <span className="status-dot"></span>
+                  APPLICATIONS OPEN
                 </span>
               </div>
 
@@ -110,16 +111,30 @@ export default function Events() {
               </h3>
 
               <p className="event-description">
-                Recruitment for the 2026 ACES committee
-                has been completed.
+                Join the 2026 committee and help
+                build the next chapter of ACES.
               </p>
 
             </div>
 
             <div className="event-action-wrap">
+
               <div className="event-meta-small">
-                2026 COMMITTEE
+                JOIN THE COMMITTEE
               </div>
+
+              <button
+                type="button"
+                className="event-action event-action-apply"
+                onClick={goToRecruit}
+              >
+                <span>APPLY NOW</span>
+
+                <span className="event-action-arrow">
+                  ↗
+                </span>
+              </button>
+
             </div>
 
           </article>
@@ -144,7 +159,7 @@ export default function Events() {
 
                 <span className="event-status event-status-open">
                   <span className="status-dot"></span>
-                  HACKERRANK · 26 SEP
+                  HACKERRANK
                 </span>
               </div>
 
@@ -163,20 +178,8 @@ export default function Events() {
             <div className="event-action-wrap">
 
               <div className="event-meta-small">
-                REGISTRATION OPEN · CLOSES 25 SEP / 12 PM
+                DATE TBA
               </div>
-
-              <button
-                type="button"
-                className="event-action event-action-apply"
-                onClick={goToSyCodes}
-              >
-                <span>REGISTER NOW</span>
-
-                <span className="event-action-arrow">
-                  ↗
-                </span>
-              </button>
 
             </div>
 

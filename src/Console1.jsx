@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "./lib/supabase";
-import SyCodesConsole from "./SyCodesConsole";
 
 const STATUS_OPTIONS = [
   "ALL",
@@ -20,8 +19,6 @@ const INTERVIEW_OPTIONS = [
 export default function Console() {
   const [sessionLoading, setSessionLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);
-  const [isTechnicalLead, setIsTechnicalLead] = useState(false);
-  const [consoleSection, setConsoleSection] = useState("recruitment");
 
   const [applications, setApplications] = useState([]);
   const [selectedApplication, setSelectedApplication] =
@@ -63,11 +60,7 @@ export default function Console() {
           return;
         }
 
-        const { data: technicalLead, error: technicalLeadError } =
-          await supabase.rpc("is_technical_lead");
-
         if (mounted) {
-          setIsTechnicalLead(!technicalLeadError && technicalLead === true);
           setAuthorized(true);
           setSessionLoading(false);
         }
@@ -378,30 +371,6 @@ export default function Console() {
         </div>
       </header>
 
-      {isTechnicalLead && (
-        <nav className="console-section-switcher" aria-label="Console sections">
-          <button
-            type="button"
-            className={consoleSection === "recruitment" ? "active" : ""}
-            onClick={() => setConsoleSection("recruitment")}
-          >
-            RECRUITMENT / 2026
-          </button>
-          <button
-            type="button"
-            className={consoleSection === "sycodes" ? "active" : ""}
-            onClick={() => setConsoleSection("sycodes")}
-          >
-            SE CODING COMPETITION
-          </button>
-        </nav>
-      )}
-
-      {consoleSection === "sycodes" && isTechnicalLead ? (
-        <SyCodesConsole />
-      ) : (
-        <>
-
       {/* ERROR */}
 
       {error && (
@@ -665,9 +634,6 @@ export default function Console() {
           )}
         </aside>
       </section>
-
-        </>
-      )}
 
       <style>{consoleStyles}</style>
     </main>
@@ -999,35 +965,6 @@ const consoleStyles = `
   .console-header-actions button:hover {
     background: #0a0a0a;
     color: #f2f0e9;
-  }
-
-  .console-section-switcher {
-    margin-top: 18px;
-    display: flex;
-    gap: 0;
-    border-top: 1px solid rgba(0,0,0,.15);
-    border-bottom: 1px solid rgba(0,0,0,.15);
-  }
-
-  .console-section-switcher button {
-    padding: 12px 16px;
-    border: 0;
-    border-right: 1px solid rgba(0,0,0,.14);
-    background: transparent;
-    color: #777;
-    font-family: "DM Mono", monospace;
-    font-size: 8px;
-    letter-spacing: .08em;
-    cursor: pointer;
-  }
-
-  .console-section-switcher button.active {
-    background: rgba(32,227,178,.08);
-    color: #0a0a0a;
-  }
-
-  .console-section-switcher button:hover {
-    color: #0a0a0a;
   }
 
   .console-global-error {
@@ -1438,14 +1375,6 @@ const consoleStyles = `
 
     .console-header-actions button {
       flex: 1;
-    }
-
-    .console-section-switcher {
-      overflow-x: auto;
-    }
-
-    .console-section-switcher button {
-      flex-shrink: 0;
     }
 
     .console-stats {
