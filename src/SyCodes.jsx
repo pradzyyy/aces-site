@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import "./SyCodes.css";
 
@@ -20,6 +20,12 @@ export default function SyCodes() {
   const [registrationCode, setRegistrationCode] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [showEventBrief, setShowEventBrief] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setShowEventBrief(true), 650);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const goHome = () => {
     window.location.href = "/";
@@ -161,7 +167,8 @@ export default function SyCodes() {
           <div className="sycodes-success-event">
             <span>26 SEP 2026</span>
             <span>OFFLINE · HACKERRANK</span>
-            <span>DYPCOE / PUNE</span>
+            <span>SOFTWARE LAB 1 · A BUILDING</span>
+            <span>STARTS 9:45 AM</span>
           </div>
 
           <button type="button" className="sycodes-home-button" onClick={goHome}>
@@ -210,7 +217,7 @@ export default function SyCodes() {
       <section className="sycodes-event-strip">
         <div>
           <span>REGISTRATION DEADLINE</span>
-          <strong>25 SEP 2026 · 12:00 PM IST</strong>
+          <strong>25 SEP 2026 · 5:00 PM IST</strong>
         </div>
         <div>
           <span>ELIGIBILITY</span>
@@ -221,6 +228,47 @@ export default function SyCodes() {
           <strong>HACKERRANK LINK SHARED ON THE DAY</strong>
         </div>
       </section>
+
+      {showEventBrief && (
+        <div className="sycodes-brief-backdrop" role="dialog" aria-modal="true" aria-label="SE Coding Competition event brief">
+          <div className="sycodes-brief-card">
+            <button
+              type="button"
+              className="sycodes-brief-close"
+              onClick={() => setShowEventBrief(false)}
+              aria-label="Close event brief"
+            >
+              ×
+            </button>
+
+            <div className="sycodes-brief-kicker">EVENT BRIEF / 03</div>
+
+            <div className="sycodes-brief-heading">
+              <span>VENUE CONFIRMED</span>
+              <strong>SE CODING<br />COMPETITION.</strong>
+            </div>
+
+            <div className="sycodes-brief-grid">
+              <div className="sycodes-brief-block sycodes-brief-time">
+                <span>STARTS</span>
+                <strong>09:45</strong>
+                <small>AM · 26 SEP 2026</small>
+              </div>
+
+              <div className="sycodes-brief-block">
+                <span>LOCATION</span>
+                <strong>SOFTWARE LAB 1</strong>
+                <small>A BUILDING · DYPCOE</small>
+              </div>
+            </div>
+
+            <div className="sycodes-brief-footer">
+              <span><i /> OFFLINE · HACKERRANK</span>
+              <button type="button" onClick={() => setShowEventBrief(false)}>GOT IT ↗</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="sycodes-application">
         <div className="sycodes-form-heading">
@@ -341,7 +389,7 @@ export default function SyCodes() {
             <div>
               <span>NOTICE</span>
               <p>
-                Registration closes automatically at 12:00 PM on 25 September.
+                Registration closes automatically at 5:00 PM on 25 September.
                 <br />
                 In case of any ambiguity, contact Pradyumn P — 9270404006.
               </p>
