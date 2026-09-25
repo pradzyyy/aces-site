@@ -23,7 +23,11 @@ export default function SyCodes() {
   const [showEventBrief, setShowEventBrief] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShowEventBrief(true), 650);
+    const timer = window.setTimeout(
+      () => setShowEventBrief(true),
+      650
+    );
+
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -36,69 +40,137 @@ export default function SyCodes() {
       ...current,
       [field]: value,
     }));
+
     setError("");
   };
 
+  const cleanEmail = form.email.trim().toLowerCase();
+  const cleanPhone = form.phone.replace(/\D/g, "");
+
   const valid =
     form.name.trim().length >= 2 &&
-    emailPattern.test(form.email.trim()) &&
-    /^\d{10}$/.test(form.phone) &&
+    emailPattern.test(cleanEmail) &&
+    /^\d{10}$/.test(cleanPhone) &&
     form.rollNumber.trim() !== "" &&
     form.division.trim() !== "" &&
     form.batch.trim() !== "";
 
   const submitRegistration = async (event) => {
     event.preventDefault();
+
     if (!valid || submitting) return;
 
     setSubmitting(true);
     setError("");
 
+    const cleanName = form.name.trim();
+    const cleanRollNumber = form.rollNumber.trim().toUpperCase();
+    const cleanDivision = form.division.trim().toUpperCase();
+    const cleanBatch = form.batch.trim().toUpperCase();
+
     try {
       const { data, error: submitError } = await supabase.rpc(
         "submit_sy_coding_registration",
         {
-          p_name: form.name.trim(),
-          p_email: form.email.trim().toLowerCase(),
-          p_phone: form.phone,
-          p_roll_number: form.rollNumber.trim(),
+          p_name: cleanName,
+          p_email: cleanEmail,
+          p_phone: cleanPhone,
+          p_roll_number: cleanRollNumber,
           p_year: "SY",
-          p_division: form.division.trim(),
-          p_batch: form.batch.trim(),
+          p_division: cleanDivision,
+          p_batch: cleanBatch,
         }
       );
 
       if (submitError) {
-        console.error("SE coding registration error:", submitError);
-        const message = String(submitError.message || "").toUpperCase();
-        const details = String(submitError.details || "").toUpperCase();
+        console.error(
+          "SE coding registration error:",
+          submitError
+        );
+
+        const message = String(
+          submitError.message || ""
+        ).toUpperCase();
+
+        const details = String(
+          submitError.details || ""
+        ).toUpperCase();
+
         const combined = `${message} ${details}`;
 
-        if (combined.includes("ALREADY_REGISTERED") || submitError.code === "23505") {
+        if (
+          combined.includes("ALREADY_REGISTERED") ||
+          submitError.code === "23505"
+        ) {
           setError(
             "ALREADY REGISTERED. IN CASE OF ANY AMBIGUITY, CONTACT PRADYUMN P — 9270404006."
           );
-        } else if (combined.includes("REGISTRATION_CLOSED")) {
+        } else if (
+          combined.includes("REGISTRATION_CLOSED")
+        ) {
           setError("REGISTRATION IS CLOSED.");
-        } else if (combined.includes("ONLY_SY_ELIGIBLE")) {
-          setError("ONLY SY STUDENTS ARE ELIGIBLE FOR THIS COMPETITION.");
+        } else if (
+          combined.includes("ONLY_SY_ELIGIBLE")
+        ) {
+          setError(
+            "ONLY SY STUDENTS ARE ELIGIBLE FOR THIS COMPETITION."
+          );
+        } else if (
+          combined.includes("INVALID_EMAIL")
+        ) {
+          setError(
+            "PLEASE ENTER A VALID EMAIL ADDRESS."
+          );
+        } else if (
+          combined.includes("INVALID_PHONE")
+        ) {
+          setError(
+            "PHONE NUMBER MUST BE EXACTLY 10 DIGITS."
+          );
+        } else if (
+          combined.includes("INVALID_NAME")
+        ) {
+          setError(
+            "PLEASE ENTER A VALID NAME."
+          );
+        } else if (
+          combined.includes("MISSING_ACADEMIC_DETAILS")
+        ) {
+          setError(
+            "PLEASE COMPLETE ALL ACADEMIC DETAILS."
+          );
         } else {
-          setError("WE COULDN'T COMPLETE YOUR REGISTRATION. PLEASE TRY AGAIN.");
+          setError(
+            "WE COULDN'T COMPLETE YOUR REGISTRATION. PLEASE TRY AGAIN."
+          );
         }
+
         return;
       }
 
       if (!data) {
-        setError("REGISTRATION SUBMITTED, BUT NO REGISTRATION ID WAS RETURNED.");
+        setError(
+          "REGISTRATION SUBMITTED, BUT NO REGISTRATION ID WAS RETURNED."
+        );
         return;
       }
 
       setRegistrationCode(data);
       setSubmitted(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     } catch (submitException) {
-      console.error(submitException);
-      setError("SOMETHING WENT WRONG. PLEASE TRY AGAIN.");
+      console.error(
+        "Unexpected registration error:",
+        submitException
+      );
+
+      setError(
+        "SOMETHING WENT WRONG. PLEASE TRY AGAIN."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -109,16 +181,26 @@ export default function SyCodes() {
       <main className="sycodes-page sycodes-success-page">
         <div className="sycodes-frame" />
 
-        <button type="button" className="sycodes-brand" onClick={goHome}>
+        <button
+          type="button"
+          className="sycodes-brand"
+          onClick={goHome}
+        >
           ACES<span>/</span>
         </button>
 
-        <button type="button" className="sycodes-back" onClick={goHome}>
+        <button
+          type="button"
+          className="sycodes-back"
+          onClick={goHome}
+        >
           ← BACK TO ACES
         </button>
 
         <section className="sycodes-success">
-          <div className="sycodes-index">ACES / SE CODING COMPETITION</div>
+          <div className="sycodes-index">
+            ACES / SE CODING COMPETITION
+          </div>
 
           <h1 className="sycodes-success-title">
             REGISTRATION
@@ -133,6 +215,7 @@ export default function SyCodes() {
                 <i />
                 <i />
               </div>
+
               <span>aces://sycodes</span>
             </div>
 
@@ -141,10 +224,12 @@ export default function SyCodes() {
                 <span>$</span>
                 <span>register --se-coding</span>
               </div>
+
               <div className="sycodes-terminal-line muted">
                 <span>&gt;</span>
                 <span>validating registration...</span>
               </div>
+
               <div className="sycodes-terminal-line muted">
                 <span>&gt;</span>
                 <span>registration accepted</span>
@@ -152,14 +237,23 @@ export default function SyCodes() {
 
               <div className="sycodes-divider" />
 
-              <div className="sycodes-code-label">REGISTRATION ID</div>
-              <div className="sycodes-code">{registrationCode}</div>
-              <div className="sycodes-status">STATUS: REGISTERED</div>
+              <div className="sycodes-code-label">
+                REGISTRATION ID
+              </div>
+
+              <div className="sycodes-code">
+                {registrationCode}
+              </div>
+
+              <div className="sycodes-status">
+                STATUS: REGISTERED
+              </div>
 
               <p className="sycodes-success-note">
                 Keep this registration ID safe.
                 <br />
-                HackerRank details will be shared on the day of the competition.
+                HackerRank details will be shared on
+                the day of the competition.
               </p>
             </div>
           </div>
@@ -171,7 +265,11 @@ export default function SyCodes() {
             <span>STARTS 9:45 AM</span>
           </div>
 
-          <button type="button" className="sycodes-home-button" onClick={goHome}>
+          <button
+            type="button"
+            className="sycodes-home-button"
+            onClick={goHome}
+          >
             RETURN TO ACES ↗
           </button>
         </section>
@@ -183,16 +281,26 @@ export default function SyCodes() {
     <main className="sycodes-page">
       <div className="sycodes-frame" />
 
-      <button type="button" className="sycodes-brand" onClick={goHome}>
+      <button
+        type="button"
+        className="sycodes-brand"
+        onClick={goHome}
+      >
         ACES<span>/</span>
       </button>
 
-      <button type="button" className="sycodes-back" onClick={goHome}>
+      <button
+        type="button"
+        className="sycodes-back"
+        onClick={goHome}
+      >
         ← BACK TO ACES
       </button>
 
       <header className="sycodes-header">
-        <div className="sycodes-index">05 / SE CODING COMPETITION</div>
+        <div className="sycodes-index">
+          05 / SE CODING COMPETITION
+        </div>
 
         <div className="sycodes-header-main">
           <h1>
@@ -209,28 +317,42 @@ export default function SyCodes() {
         </div>
 
         <p className="sycodes-intro">
-          Register for the ACES SE Coding Competition. Solve Python problems on
-          HackerRank based on topics covered during the VAC.
+          Register for the ACES SE Coding Competition.
+          Solve Python problems on HackerRank based on
+          topics covered during the VAC.
         </p>
       </header>
 
       <section className="sycodes-event-strip">
         <div>
           <span>REGISTRATION DEADLINE</span>
-          <strong>25 SEP 2026 · 5:00 PM IST</strong>
+          <strong>
+            25 SEP 2026 · 5:00 PM IST
+          </strong>
         </div>
+
         <div>
           <span>ELIGIBILITY</span>
-          <strong>SY · COMPUTER ENGINEERING · ALL DIVISIONS</strong>
+          <strong>
+            SY · COMPUTER ENGINEERING · ALL DIVISIONS
+          </strong>
         </div>
+
         <div>
           <span>PLATFORM</span>
-          <strong>HACKERRANK LINK SHARED ON THE DAY</strong>
+          <strong>
+            HACKERRANK LINK SHARED ON THE DAY
+          </strong>
         </div>
       </section>
 
       {showEventBrief && (
-        <div className="sycodes-brief-backdrop" role="dialog" aria-modal="true" aria-label="SE Coding Competition event brief">
+        <div
+          className="sycodes-brief-backdrop"
+          role="dialog"
+          aria-modal="true"
+          aria-label="SE Coding Competition event brief"
+        >
           <div className="sycodes-brief-card">
             <button
               type="button"
@@ -241,30 +363,55 @@ export default function SyCodes() {
               ×
             </button>
 
-            <div className="sycodes-brief-kicker">EVENT BRIEF / 03</div>
+            <div className="sycodes-brief-kicker">
+              EVENT BRIEF / 03
+            </div>
 
             <div className="sycodes-brief-heading">
               <span>VENUE CONFIRMED</span>
-              <strong>SE CODING<br />COMPETITION.</strong>
+
+              <strong>
+                SE CODING
+                <br />
+                COMPETITION.
+              </strong>
             </div>
 
             <div className="sycodes-brief-grid">
               <div className="sycodes-brief-block sycodes-brief-time">
                 <span>STARTS</span>
+
                 <strong>09:45</strong>
-                <small>AM · 26 SEP 2026</small>
+
+                <small>
+                  AM · 26 SEP 2026
+                </small>
               </div>
 
               <div className="sycodes-brief-block">
                 <span>LOCATION</span>
+
                 <strong>SOFTWARE LAB 1</strong>
-                <small>A BUILDING · DYPCOE</small>
+
+                <small>
+                  A BUILDING · DYPCOE
+                </small>
               </div>
             </div>
 
             <div className="sycodes-brief-footer">
-              <span><i /> OFFLINE · HACKERRANK</span>
-              <button type="button" onClick={() => setShowEventBrief(false)}>GOT IT ↗</button>
+              <span>
+                <i /> OFFLINE · HACKERRANK
+              </span>
+
+              <button
+                type="button"
+                onClick={() =>
+                  setShowEventBrief(false)
+                }
+              >
+                GOT IT ↗
+              </button>
             </div>
           </div>
         </div>
@@ -274,19 +421,34 @@ export default function SyCodes() {
         <div className="sycodes-form-heading">
           <div>
             <span>01 / REGISTRATION</span>
-            <h2>ENTER YOUR DETAILS.</h2>
+
+            <h2>
+              ENTER YOUR DETAILS.
+            </h2>
           </div>
-          <p>One registration per student.</p>
+
+          <p>
+            One registration per student.
+          </p>
         </div>
 
-        <form className="sycodes-form" onSubmit={submitRegistration}>
+        <form
+          className="sycodes-form"
+          onSubmit={submitRegistration}
+        >
           <div className="sycodes-fields">
             <label className="sycodes-field sycodes-full">
               <span>FULL NAME</span>
+
               <input
                 type="text"
                 value={form.name}
-                onChange={(event) => updateField("name", event.target.value)}
+                onChange={(event) =>
+                  updateField(
+                    "name",
+                    event.target.value
+                  )
+                }
                 placeholder="Enter your full name"
                 autoComplete="name"
                 maxLength={80}
@@ -295,6 +457,7 @@ export default function SyCodes() {
 
             <label className="sycodes-field">
               <span>EMAIL</span>
+
               <input
                 type="email"
                 value={form.email}
@@ -302,7 +465,10 @@ export default function SyCodes() {
                   updateField(
                     "email",
                     event.target.value
-                      .replace(/[^a-zA-Z0-9@._%+-]/g, "")
+                      .replace(
+                        /[^a-zA-Z0-9@._%+-]/g,
+                        ""
+                      )
                       .toLowerCase()
                   )
                 }
@@ -311,20 +477,29 @@ export default function SyCodes() {
                 inputMode="email"
                 maxLength={100}
               />
-              {form.email && !emailPattern.test(form.email) && (
-                <small>ENTER A VALID EMAIL ADDRESS</small>
-              )}
+
+              {form.email &&
+                !emailPattern.test(
+                  form.email.trim()
+                ) && (
+                  <small>
+                    ENTER A VALID EMAIL ADDRESS
+                  </small>
+                )}
             </label>
 
             <label className="sycodes-field">
               <span>PHONE NUMBER</span>
+
               <input
                 type="tel"
                 value={form.phone}
                 onChange={(event) =>
                   updateField(
                     "phone",
-                    event.target.value.replace(/\D/g, "").slice(0, 10)
+                    event.target.value
+                      .replace(/\D/g, "")
+                      .slice(0, 10)
                   )
                 }
                 placeholder="10 digit mobile number"
@@ -332,18 +507,32 @@ export default function SyCodes() {
                 inputMode="numeric"
                 maxLength={10}
               />
-              {form.phone && !/^\d{10}$/.test(form.phone) && (
-                <small>PHONE NUMBER MUST BE EXACTLY 10 DIGITS</small>
-              )}
+
+              {form.phone &&
+                !/^\d{10}$/.test(
+                  form.phone
+                ) && (
+                  <small>
+                    PHONE NUMBER MUST BE EXACTLY
+                    10 DIGITS
+                  </small>
+                )}
             </label>
 
             <label className="sycodes-field">
               <span>ROLL NUMBER</span>
+
               <input
                 type="text"
                 value={form.rollNumber}
                 onChange={(event) =>
-                  updateField("rollNumber", event.target.value.slice(0, 30))
+                  updateField(
+                    "rollNumber",
+                    event.target.value.slice(
+                      0,
+                      30
+                    )
+                  )
                 }
                 placeholder="Your roll number"
                 maxLength={30}
@@ -352,20 +541,35 @@ export default function SyCodes() {
 
             <div className="sycodes-field">
               <span>YEAR</span>
-              <div className="sycodes-fixed">SECOND YEAR / SY</div>
+
+              <div className="sycodes-fixed">
+                SECOND YEAR / SY
+              </div>
             </div>
 
             <div className="sycodes-field">
               <span>BRANCH</span>
-              <div className="sycodes-fixed">COMPUTER ENGINEERING</div>
+
+              <div className="sycodes-fixed">
+                COMPUTER ENGINEERING
+              </div>
             </div>
 
             <label className="sycodes-field">
               <span>DIVISION</span>
+
               <input
                 type="text"
                 value={form.division}
-                onChange={(event) => updateField("division", event.target.value.slice(0, 10))}
+                onChange={(event) =>
+                  updateField(
+                    "division",
+                    event.target.value.slice(
+                      0,
+                      10
+                    )
+                  )
+                }
                 placeholder="Your division"
                 maxLength={10}
               />
@@ -373,30 +577,52 @@ export default function SyCodes() {
 
             <label className="sycodes-field">
               <span>BATCH</span>
+
               <input
                 type="text"
                 value={form.batch}
-                onChange={(event) => updateField("batch", event.target.value.slice(0, 20))}
+                onChange={(event) =>
+                  updateField(
+                    "batch",
+                    event.target.value.slice(
+                      0,
+                      20
+                    )
+                  )
+                }
                 placeholder="Your batch"
                 maxLength={20}
               />
             </label>
           </div>
 
-          {error && <div className="sycodes-error">{error}</div>}
+          {error && (
+            <div className="sycodes-error">
+              {error}
+            </div>
+          )}
 
           <div className="sycodes-form-footer">
             <div>
               <span>NOTICE</span>
+
               <p>
-                Registration closes automatically at 5:00 PM on 25 September.
+                Registration closes automatically
+                at 5:00 PM on 25 September.
                 <br />
-                In case of any ambiguity, contact Pradyumn P — 9270404006.
+                In case of any ambiguity, contact
+                Pradyumn P — 9270404006.
               </p>
             </div>
 
-            <button type="submit" disabled={!valid || submitting}>
-              {submitting ? "REGISTERING..." : "REGISTER NOW"}
+            <button
+              type="submit"
+              disabled={!valid || submitting}
+            >
+              {submitting
+                ? "REGISTERING..."
+                : "REGISTER NOW"}
+
               <span>↗</span>
             </button>
           </div>
