@@ -28,10 +28,6 @@ export default function DockNav() {
   const [active, setActive] = useState("home");
   const [hovered, setHovered] = useState(null);
 
-  /* =========================================================
-     UPDATE ACTIVE ITEM WHILE SCROLLING
-  ========================================================= */
-
   useEffect(() => {
     const sections = navItems
       .map((item) => ({
@@ -46,7 +42,8 @@ export default function DockNav() {
       let currentSection = "home";
 
       sections.forEach((section) => {
-        const rect = section.element.getBoundingClientRect();
+        const rect =
+          section.element.getBoundingClientRect();
 
         if (
           rect.top <= triggerPoint &&
@@ -61,21 +58,29 @@ export default function DockNav() {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      { passive: true }
+    );
 
-    window.addEventListener("resize", handleScroll);
+    window.addEventListener(
+      "resize",
+      handleScroll
+    );
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+
+      window.removeEventListener(
+        "resize",
+        handleScroll
+      );
     };
   }, []);
-
-  /* =========================================================
-     SECTION NAVIGATION
-  ========================================================= */
 
   const scrollToSection = (id) => {
     if (id === "home") {
@@ -87,25 +92,19 @@ export default function DockNav() {
       return;
     }
 
-    const section = document.getElementById(id);
+    const section =
+      document.getElementById(id);
 
     if (!section) return;
 
     const top =
-      section.getBoundingClientRect().top + window.scrollY;
+      section.getBoundingClientRect().top +
+      window.scrollY;
 
     window.scrollTo({
       top,
       behavior: "smooth",
     });
-  };
-
-  /* =========================================================
-     REGISTER
-  ========================================================= */
-
-  const goToRegister = () => {
-    window.location.href = "/sycodes";
   };
 
   return (
@@ -118,11 +117,14 @@ export default function DockNav() {
       <button
         type="button"
         className="dock-brand"
-        onClick={() => scrollToSection("home")}
+        onClick={() =>
+          scrollToSection("home")
+        }
         aria-label="ACES Home"
       >
         ACES<span>/</span>
       </button>
+
 
       {/* =====================================================
           MAIN DOCK
@@ -133,8 +135,11 @@ export default function DockNav() {
         <div className="dock-items">
 
           {navItems.map((item) => {
-            const isHovered = hovered === item.id;
-            const isActive = active === item.id;
+            const isHovered =
+              hovered === item.id;
+
+            const isActive =
+              active === item.id;
 
             return (
               <button
@@ -145,9 +150,15 @@ export default function DockNav() {
                   ${isActive ? "is-active" : ""}
                   ${isHovered ? "is-hovered" : ""}
                 `}
-                onMouseEnter={() => setHovered(item.id)}
-                onMouseLeave={() => setHovered(null)}
-                onClick={() => scrollToSection(item.id)}
+                onMouseEnter={() =>
+                  setHovered(item.id)
+                }
+                onMouseLeave={() =>
+                  setHovered(null)
+                }
+                onClick={() =>
+                  scrollToSection(item.id)
+                }
                 aria-label={item.label}
               >
                 <span className="dock-number">
@@ -162,38 +173,6 @@ export default function DockNav() {
           })}
 
         </div>
-
-        {/* =================================================
-            DIVIDER
-        ================================================= */}
-
-        <div className="dock-divider" />
-
-        {/* =================================================
-            APPLY
-        ================================================= */}
-
-        <button
-          type="button"
-          className={`
-            dock-recruit
-            ${hovered === "apply" ? "is-hovered" : ""}
-          `}
-          onMouseEnter={() => setHovered("apply")}
-          onMouseLeave={() => setHovered(null)}
-          onClick={goToRegister}
-          aria-label="Register for SE Coding Competition"
-        >
-          <span className="dock-recruit-dot" />
-
-          <span className="dock-recruit-label">
-            REGISTER
-          </span>
-
-          <span className="dock-recruit-arrow">
-            ↗
-          </span>
-        </button>
 
       </div>
     </nav>
